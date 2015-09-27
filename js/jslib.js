@@ -9,19 +9,27 @@ function validateLoginForm(){
 	var pword = document.getElementsByName('pword')[0].value;
 	
 	if (uname != "" && pword != "")
+	{
+		document.getElementsByName('uname')[0].style.background = "#FFF";
+		document.getElementsByName('pword')[0].style.background = "#FFF";
 		return true;
-	
+	}
+		
 	if (uname === "")
 	{
 		alertMsg += "Username\n";
 		document.getElementsByName('uname')[0].style.background = "#FF5050";
 	}
+	else
+		document.getElementsByName('uname')[0].style.background = "#FFF";
 	
 	if (pword === "")
 	{
 		alertMsg += "Password\n";
 		document.getElementsByName('pword')[0].style.background = "#FF5050";
 	}
+	else
+		document.getElementsByName('pword')[0].style.background = "#FFF";
 	
 	alert(alertMsg);
 	return false;

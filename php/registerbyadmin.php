@@ -11,24 +11,17 @@ if (!isset($_SESSION['user_id'])) {
 
 }
 
-$page_title = 'Admin Page';
+$page_title = 'Registering New User';
 include ('includes/header.html');
-echo '<h1>Manage Parkings</h1>';
+
+$name = $_SESSION['first_name'];
 
 if ($_SESSION['admin'] == 1){
-	echo "Welcome $name!";
-	
-	
-	
-	
-	
-	
-
-	
+echo '<h1>Add New User</h1>';
 	// Check for form submission:
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-	//require ('mysqli_connect.php'); // Connect to the db.
+	require ('mysqli_connect.php'); // Connect to the db.
 		
 	$errors = array(); // Initialize an error array.
 	
@@ -74,8 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if ($r) { // If it ran OK.
 		
 			// Print a message:
-			echo '<h1>Confirmation!</h1>
-		<p>User has been registered. User has been add as a regular user by default, you can change it to admin later.</p><p><br /></p>';	
+			echo '
+		<p class="error">User has been registered. User has been add as a regular user by default, you can change it to admin later.</p><p><br /></p>';	
 		
 		} else { // If it did not run OK.
 			
@@ -88,9 +81,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						
 		} // End of if ($r) IF.
 		
-		mysqli_close($dbc); // Close the database connection.
 
 		// Include the footer and quit the script:
+		echo '<h1>Edit User</h1>(<a href="edit.php">open</a>)';
+		echo '<h1>Delete User</h1>(<a href="delete.php">open</a>)';
+		echo '<h1>Reset User\'s password</h1>(<a href="reset.php">open</a>)';
 		include ('includes/footer.html'); 
 		exit();
 		
@@ -106,14 +101,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	} // End of if (empty($errors)) IF.
 	
 	
-	
-	
-	
-	
-	
+}
+?>
+
+<form action="registerbyadmin.php" method="post">
+	<p>First Name: <input type="text" name="first_name" size="15" maxlength="20" value="<?php if (isset($_POST['first_name'])) echo $_POST['first_name']; ?>" /></p>
+	<p>Last Name: <input type="text" name="last_name" size="15" maxlength="40" value="<?php if (isset($_POST['last_name'])) echo $_POST['last_name']; ?>" /></p>
+	<p>Email Address: <input type="text" name="email" size="20" maxlength="60" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>"  /> </p>
+	<p>Password: <input type="password" name="pass1" size="10" maxlength="20" value="<?php if (isset($_POST['pass1'])) echo $_POST['pass1']; ?>"  /></p>
+	<p>Confirm Password: <input type="password" name="pass2" size="10" maxlength="20" value="<?php if (isset($_POST['pass2'])) echo $_POST['pass2']; ?>"  /></p>
+	<p><input type="submit" name="submit" value="Register" /></p>
+</form>
+
+
+<?php	
+
+echo '<h1>Edit User</h1>(<a href="edit.php">open</a>)';
+echo '<h1>Delete User</h1>(<a href="delete.php">open</a>)';
+echo '<h1>Reset User\'s password</h1>(<a href="reset.php">open</a>)';
+
 }
 else{
-	$name = $_SESSION['first_name'];
 	echo "<p>Sorry $name, you are not authorized to access this page</p>";
 }
 

@@ -1,6 +1,6 @@
 <?php # Script 3.4 - index.php
 session_start();
-$page_title = 'Welcome to this Site!';
+$page_title = 'NKU Parking - Home';
 include ('includes/header.html');
 
 ?>

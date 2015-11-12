@@ -1,5 +1,15 @@
 <?php # Script 3.4 - index.php
 session_start();
+
+// If no session value is present, redirect the user:
+if (!isset($_SESSION['user_id'])) {
+
+	// Need the functions:
+	require ('login.php');
+	exit();	
+
+}
+
 $page_title = 'NKU Parking - Home';
 include ('includes/header.html');
 

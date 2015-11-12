@@ -1,7 +1,9 @@
 /*
 	Author	:	Christopher Robinson
-	Email		:	christopher@edg3.co.uk
+	Email	:	christopher@edg3.co.uk
 	Website	:	http://www.edg3.co.uk/
+	
+	Modified by Timothy Lester
 */
 * {
 	border: 0;
@@ -114,7 +116,21 @@ input, select, .input {
 	padding: 5px;
 	font-weight: bold;
 	font-size: 1em;
-	color: #008040;
 	background: #FFFFFF;
 	border:1px dotted #004080;
+}
+
+#loginForm td {
+	padding: 5px 5px 5px 5px;
+}
+
+#loginForm #passwordField {
+	letter-spacing: 3px;
+}
+
+#loginForm #loginButton {
+	float: right;
+	background-image: url("../includes/images/stripefade.png");
+	color: #fbc46f;
+	letter-spacing: 1px;
 }

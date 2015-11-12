@@ -13,15 +13,9 @@
 	<div id="navigation">
 		<ul>
 			<li><a href="index.php">Home Page</a></li>
-			<li><?php
-			if (isset($_SESSION['user_id'])) {
-				echo '<a href="profile.php">Profile</a>';
-			} else {
-				echo '<a href="register.php">Register</a>';
-			}
-			?></li>
-			<li><a href="manage.php">Manage Parking</a></li>
-			<li><a href="password.php">Change Password</a></li>
+			<li><a href="delete.php">User Management</a></li>
+			<li><a href="parkingmanagement.php">Parking Management</a></li>
+			<li><a href="reporting.php">Reporting</a></li>
 			<li><?php // Create a login/logout link:
 			if (isset($_SESSION['user_id'])) {
 				echo '<a href="logout.php">Logout</a>';

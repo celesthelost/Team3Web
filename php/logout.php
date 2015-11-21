@@ -21,6 +21,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Set the page title and include the HTML header:
+header('Refresh: 5; URL=login.php');
 $page_title = 'Logged Out!';
 include ('includes/header.html');
 

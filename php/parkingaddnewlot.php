@@ -54,7 +54,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$q = "INSERT INTO Lots (LotName, Latitude, Longitude) VALUES ('$ln', '$lla', '$llo')";		
 		$r = @mysqli_query ($dbc, $q); // Run the query.
 		if ($r) { // If it ran OK.
-		
+
+			$default_status = 'available';
+			
+			// Add 10 parking spots to this lot
+			for($i = 1; $i <= 10; $i++){
+				$q = "INSERT INTO Spots (SpotNumber, SpotLot, SpotStatus) VALUES ('$i', '$ln', '$default_status')";		
+				$r = @mysqli_query ($dbc, $q); // Run the query.
+			}
+
 			// Print a message:
 			echo '<p class="error">New lot has been added.</p>';	
 		
@@ -78,8 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		
 	} else { // Report the errors.
 	
-		echo '<h1>Error!</h1>
-		<p class="error">The following error(s) occurred:<br />';
+		echo '<p class="error">The following error(s) occurred:<br />';
 		foreach ($errors as $msg) { // Print each error.
 			echo " - $msg<br />\n";
 		}

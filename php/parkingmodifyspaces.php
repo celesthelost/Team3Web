@@ -13,6 +13,8 @@ if (!isset($_SESSION['user_id'])) {
 
 $page_title = 'Modify Parking Space Status';
 include ('includes/header.html');
+echo '<h1>Add New Parking Lot</h1>(<a href="parkingaddnewlot.php">open</a>)';
+echo '<h1>Modify Parking Space Status</h1>';
 
 $name = $_SESSION['first_name'];
 
@@ -77,8 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		
 	} else { // Report the errors.
 	
-		echo '<h1>Error!</h1>
-		<p class="error">The following error(s) occurred:<br />';
+		echo '<p class="error">The following error(s) occurred:<br />';
 		foreach ($errors as $msg) { // Print each error.
 			echo " - $msg<br />\n";
 		}
@@ -87,7 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	} // End of if (empty($errors)) IF.
 }
 
-echo '<h1>Add New Parking Lot</h1>(<a href="parkingaddnewlot.php">open</a>)';
 include("includes/parkingmodifyspace.html");	
 
 }

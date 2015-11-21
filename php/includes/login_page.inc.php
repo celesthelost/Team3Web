@@ -20,7 +20,7 @@ if (isset($errors) && !empty($errors)) {
 ?>
 <h1>Login</h1>
 <form action="login.php" method="post">
-	<table id="loginForm">
+	<table id="subForm">
 		<tr>
 			<td>Username:</td>
 			<td><input type="text" name="email" size="20" maxlength="60" /></td>
@@ -31,7 +31,7 @@ if (isset($errors) && !empty($errors)) {
 		</tr>
 		<tr>
 			<td></td>
-			<td><input id="loginButton" type="submit" name="submit" value="Login" /></td>
+			<td><input id="submitButton" type="submit" name="submit" value="Login" /></td>
 		</tr>
 	</table>
 </form>

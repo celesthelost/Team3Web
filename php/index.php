@@ -15,10 +15,10 @@ include ('includes/header.html');
 
 ?>
 
-<h1><p>Portal Home</p></h1>
-<h2><p><a href="delete.php">User Management</a></p></h2>
-<h2><p><a href="manage.php">Parking Lot Management</a></p></h2>
-<h2><p><a href="manage.php">Reporting</a></p></h2>
+<h1>Portal Home</h1>
+<h2><p><a href="registerbyadmin.php">User Management</a></p></h2>
+<h2><p><a href="parkingaddnewlot.php">Parking Lot Management</a></p></h2>
+<h2><p><a href="reporting.php">Reporting</a></p></h2>
 
 <?php
 include ('includes/footer.html');

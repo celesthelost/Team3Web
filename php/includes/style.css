@@ -120,17 +120,24 @@ input, select, .input {
 	border:1px dotted #004080;
 }
 
-#loginForm td {
+#subForm td {
 	padding: 5px 5px 5px 5px;
 }
 
-#loginForm #passwordField {
+#subForm #passwordField {
 	letter-spacing: 3px;
 }
 
-#loginForm #loginButton {
+#subForm #submitButton {
 	float: right;
 	background-image: url("../includes/images/stripefade.png");
 	color: #fbc46f;
 	letter-spacing: 1px;
+	min-width: 75px;
+	min-height: 30px;
+	font-size: 1.1em;
+}
+
+#subForm select{
+	width: 100%;
 }

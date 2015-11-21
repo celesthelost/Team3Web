@@ -1,0 +1,25 @@
+<h1>Modify Parking Space Status</h1>
+<form action="parkingmodifyspaces.php" method="post">
+	<table id="subForm">
+		<tr>
+			<td>Lot Name:</td>
+			<td><input type="text" name="lot_name" size="20" maxlength="20" value="<?php if (isset($_POST['lot_name'])) echo $_POST['lot_name']; ?>" /></td>
+		</tr>
+		<tr>
+			<td>Space Number:</td>
+			<td><input type="text" name="space_number" size="20" maxlength="40" value="<?php if (isset($_POST['space_number'])) echo $_POST['space_number']; ?>" /></td>
+		</tr>
+		<tr>
+			<td>New Status</td>
+			<td><select name="space_status" value="<?php if (isset($_POST['space_status'])) echo $_POST['space_status']; ?>">
+					<option value="available">Available</option>
+					<option value="unavailable">Unavailable</option>
+					<option value="reserved">Reserved</option>
+					<option value="closed">Closed</option>
+				</select></td>
+		</tr>
+		<tr>
+			<td></td><td><input id="submitButton" type="submit" name="submit" value="Update" /></td>
+		</tr>
+	</table>
+</form>

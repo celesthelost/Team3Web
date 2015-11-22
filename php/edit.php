@@ -17,7 +17,7 @@ $name = $_SESSION['first_name'];
 
 if ($_SESSION['admin'] == 1){
 
-	echo '<h1>Add New User</h1>(<a href="registerbyadmin.php">open</a>)';
+	echo '<h1>Add New User</h1>(<a href="register.php">open</a>)';
 	echo '<h1>Edit User</h1>';
 	
 	// Check for form submission:

@@ -1,10 +1,24 @@
-<?php # Script 9.5 - register.php #2
-// This script performs an INSERT query to add a record to the users table.
+<?php # Script 10.5 - #5
 
-$page_title = 'Register';
+session_start(); // Start the session.
+
+// If no session value is present, redirect the user:
+if (!isset($_SESSION['user_id'])) {
+
+	// Need the functions:
+	require ('login.php');
+	exit();	
+
+}
+
+$page_title = 'Registering New User';
 include ('includes/header.html');
 
-// Check for form submission:
+$name = $_SESSION['first_name'];
+
+if ($_SESSION['admin'] == 1){
+echo '<h1>Add New User</h1>';
+	// Check for form submission:
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	require ('mysqli_connect.php'); // Connect to the db.
@@ -53,23 +67,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if ($r) { // If it ran OK.
 		
 			// Print a message:
-			echo '<h1>Thank you!</h1>
-		<p>You are now registered. In Chapter 12 you will actually be able to log in!</p><p><br /></p>';	
+			echo '
+		<p class="error">User has been registered. User has been add as a regular user by default, you can change it to admin later.</p><p><br /></p>';	
 		
 		} else { // If it did not run OK.
 			
 			// Public message:
 			echo '<h1>System Error</h1>
-			<p class="error">You could not be registered due to a system error. We apologize for any inconvenience.</p>'; 
+			<p class="error">User could not be registered due to a system error.</p>'; 
 			
 			// Debugging message:
 			echo '<p>' . mysqli_error($dbc) . '<br /><br />Query: ' . $q . '</p>';
 						
 		} // End of if ($r) IF.
 		
-		mysqli_close($dbc); // Close the database connection.
 
 		// Include the footer and quit the script:
+		echo '<h1>Edit User</h1>(<a href="edit.php">open</a>)';
+		echo '<h1>Delete User</h1>(<a href="delete.php">open</a>)';
+		echo '<h1>Reset User\'s password</h1>(<a href="reset.php">open</a>)';
 		include ('includes/footer.html'); 
 		exit();
 		
@@ -84,12 +100,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		
 	} // End of if (empty($errors)) IF.
 	
-	mysqli_close($dbc); // Close the database connection.
-
-} // End of the main Submit conditional.
+	
+}
 ?>
-<h1>Register</h1>
-<form action="register.php" method="post">
+
+<form action="registerbyadmin.php" method="post">
 	<p>First Name: <input type="text" name="first_name" size="15" maxlength="20" value="<?php if (isset($_POST['first_name'])) echo $_POST['first_name']; ?>" /></p>
 	<p>Last Name: <input type="text" name="last_name" size="15" maxlength="40" value="<?php if (isset($_POST['last_name'])) echo $_POST['last_name']; ?>" /></p>
 	<p>Email Address: <input type="text" name="email" size="20" maxlength="60" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>"  /> </p>
@@ -97,4 +112,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<p>Confirm Password: <input type="password" name="pass2" size="10" maxlength="20" value="<?php if (isset($_POST['pass2'])) echo $_POST['pass2']; ?>"  /></p>
 	<p><input type="submit" name="submit" value="Register" /></p>
 </form>
-<?php include ('includes/footer.html'); ?>
+
+
+<?php	
+
+echo '<h1>Edit User</h1>(<a href="edit.php">open</a>)';
+echo '<h1>Delete User</h1>(<a href="delete.php">open</a>)';
+echo '<h1>Reset User\'s password</h1>(<a href="reset.php">open</a>)';
+
+}
+else{
+	echo "<p>Sorry $name, you are not authorized to access this page</p>";
+}
+
+include ('includes/footer.html');
+?>

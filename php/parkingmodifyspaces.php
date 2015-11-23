@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if ($r) { // If it ran OK.
 		
 			// Print a message:
-			echo '<p class="error">Space status has been updated.</p>';
+			echo '<p class="error">Status for '.$ln.' space '.$sn.' has been updated.</p>';
 
 		} else { // If it did not run OK.
 			
@@ -72,7 +72,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		
 
 		// Include the footer and quit the script:
-		echo '<h1>Add New Parking Lot</h1>(<a href="parkingaddnewlot.php">open</a>)';
 		include("includes/parkingmodifyspace.html");	
 		include ('includes/footer.html'); 
 		exit();

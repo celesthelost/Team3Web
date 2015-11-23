@@ -134,3 +134,28 @@ input, select, .input {
 #subForm select{
 	width: 100%;
 }
+
+#reportname{
+	text-align: center;
+	font-size: 1.3em;
+	font-weight: 700;
+	padding-bottom: 10px;
+}
+
+#reportnumber{
+	text-align: right;
+}
+
+#report {
+	margin: 15px 0 15px 5px;
+	font-size: 1.2em;
+}
+
+#report tr{
+	height: 20px;
+}
+
+#report th{
+	padding: 3px 25px 3px 0px;
+	text-align: left;
+}

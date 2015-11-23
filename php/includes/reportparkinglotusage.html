@@ -1,0 +1,25 @@
+<form action="reportparkinglotusage.php" method="post">
+	<table id="subForm">
+		<tr>
+			<td>Lot:</td>
+			<td><select name="lot_name" value="<?php if (isset($_POST['lot_name'])) echo $_POST['lot_name']; ?>">
+					<?php
+						$query = "SELECT * FROM Lots";		
+						$result = @mysqli_query ($dbc, $query);
+						if ($result) {
+							while ($row=mysqli_fetch_array($result, MYSQLI_ASSOC)){
+								echo "<option value='".$row['LotName']."'>".$row['LotName']."</option>";
+							}
+							echo '</select></td>';
+						} else {
+							echo '</select></td>';
+							echo '<h1>System Error</h1>
+								  <p class="error">An error occured attempting to get lots from the database.</p>'; 
+							echo '<p>' . mysqli_error($dbc) . 'Query: ' . $query . '</p>';
+										
+						}	
+					?>
+			<td><input id="submitButton" type="submit" name="submit" value="Run Report" /></td>
+		</tr>
+	</table>
+</form>

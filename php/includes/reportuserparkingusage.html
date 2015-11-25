@@ -1,0 +1,67 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
+<form action="reportuserparkingusage.php" method="post">
+	<table id="subForm">
+		<tr>
+			<td>User:</td>
+			<td><select name="user_name" value="<?php if (isset($_POST['user_name'])) echo $_POST['user_name']; ?>">
+					<?php
+						$query = "SELECT * FROM USER ORDER BY USERNAME ASC";		
+						$result = @mysqli_query ($dbc, $query);
+						if ($result) {
+							while ($row=mysqli_fetch_array($result, MYSQLI_ASSOC)){
+								echo "<option value='".$row['USERNAME']."'>".$row['LNAME'].", ".$row['FNAME']." (".$row['USERNAME'].")</option>";
+							}
+							echo '</select></td>';
+						} else {
+							echo '</select></td>';
+							echo '<h1>System Error</h1>
+								  <p class="error">An error occured attempting to get users from the database.</p>'; 
+							echo '<p>' . mysqli_error($dbc) . 'Query: ' . $query . '</p>';
+										
+						}	
+					?>
+		</tr>
+		<tr>
+			<td>Lot:</td>
+			<td><select name="lot_name" value="<?php if (isset($_POST['lot_name'])) echo $_POST['lot_name']; ?>">
+					<?php
+						$query = "SELECT * FROM Lots ORDER BY LotName ASC";		
+						$result = @mysqli_query ($dbc, $query);
+						if ($result) {
+							while ($row=mysqli_fetch_array($result, MYSQLI_ASSOC)){
+								echo "<option value='".$row['LotName']."'>".$row['LotName']."</option>";
+							}
+							echo '</select></td>';
+						} else {
+							echo '</select></td>';
+							echo '<h1>System Error</h1>
+								  <p class="error">An error occured attempting to get lots from the database.</p>'; 
+							echo '<p>' . mysqli_error($dbc) . 'Query: ' . $query . '</p>';
+										
+						}	
+					?>
+		</tr>
+		<tr>
+			<td>Start Date:</td>
+			<td><input type="text" name="start_date" id="start_date" value="<?php if (isset($_POST['start_date'])) echo $_POST['start_date']; ?>"/></td>
+		</tr>
+		<tr>
+			<td>End Date:</td>
+			<td><input type="text" name="end_date" id="end_date" value="<?php if (isset($_POST['end_date'])) echo $_POST['end_date']; ?>"/></td>
+		</tr>
+		<tr>
+			<td></td><td><input id="submitButton" type="submit" name="submit" value="Run Report" /></td>
+		</tr>
+	</table>
+</form>
+
+<script language="javascript" type="text/javascript">
+	$(function(){
+    	$("#start_date").datepicker();
+    	$("#end_date").datepicker();
+    });
+</script>

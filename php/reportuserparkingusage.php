@@ -14,10 +14,11 @@ if (!isset($_SESSION['user_id'])) {
 
 require ('mysqli_connect.php');// Connect to the db.
 
-$page_title = 'Parking Lot Usage Report';
+$page_title = 'User Parking Report';
 include ('includes/header.html');
-echo '<h1>Parking Lot Usage</h1>';
-include('includes/reportparkinglotusage.html');
+echo '<h1>Parking Lot Usage</h1>(<a href="reportparkinglotusage.php">open</a>)';
+echo '<h1>User Parking Report</h1>';
+include ('includes/reportuserparkingusage.html');
 
 $name = $_SESSION['first_name'];
 
@@ -28,63 +29,60 @@ if ($_SESSION['admin'] == 1){
 	$errors = array(); // Initialize an error array.
 	
 	// Check for a lot name:
+	if (empty($_POST['user_name'])) {
+		$errors[] = 'Please select a user to run usage report on.';
+	} else {
+		$un = mysqli_real_escape_string($dbc, trim($_POST['user_name']));
+	}
 	if (empty($_POST['lot_name'])) {
 		$errors[] = 'Please select a lot to run usage report on.';
 	} else {
 		$ln = mysqli_real_escape_string($dbc, trim($_POST['lot_name']));
 	}
+	if (empty($_POST['start_date'])) {
+		$errors[] = 'Please select a start date.';
+	} else {
+		$sd = mysqli_real_escape_string($dbc, trim($_POST['start_date']));
+	}
+	if (empty($_POST['end_date'])) {
+		$errors[] = 'Please select an end date.';
+	} else {
+		$ed = mysqli_real_escape_string($dbc, trim($_POST['end_date']));
+	}
 	
 	if (empty($errors)) { // If everything's OK.
+
+		// Reorganize the date into yyyy-dd-mm
+		$sd_array = explode("/", $sd);
+		$sd = $sd_array[2]."-".$sd_array[0]."-".$sd_array[1];
+		$ed_array = explode("/", $ed);
+		$ed = $ed_array[2]."-".$ed_array[0]."-".$ed_array[1];
 	
-		// Add the new lot to the database
-		
 		// Make the query:
-		$q = "SELECT * FROM Spots WHERE SpotLot='$ln'";		
+		$q = "SELECT * FROM history WHERE LotName='$ln' AND 
+			  User='$un' AND StartTime >= '$sd' AND StartTime <= '$ed'";		
 		$r = @mysqli_query ($dbc, $q); // Run the query.
 		if ($r) { // If it ran OK.
 
-			$totalSpots = 0;
-			$spotsClosed = 0;
-			$spotsReserved = 0;
-			$spotsUnavailable = 0;
-			$spotsAvailable = 0;
+			$totalDays = 0;
+			$totalTime = 0;
 
 			while ($row=mysqli_fetch_array($r, MYSQLI_ASSOC)){
-				$totalSpots++;
-				if ($row['SpotStatus'] == 'available'){
-					$spotsAvailable++;
-				} else if ($row['SpotStatus'] == 'reserved'){
-					$spotsReserved++;
-				} else if ($row['SpotStatus'] == 'closed'){
-					$spotsClosed++;
-				} else if ($row['SpotStatus'] == 'unavailable'){
-					$spotsUnavailable++;
-				}
+				$totalDays++;
+				$totalTime += 4;
 			}
 
 			echo   '<table id="report">
 						<tr>
-							<td id="reportname" colspan="2">'.$ln.' Usage</td>
+							<td id="reportname" colspan="2">'.$ln.' Usage For '.$un.'</td>
 						</tr>
 						<tr>
-							<th>Total Spots</th>
-							<td id="reportnumber">'.$totalSpots.'</td>
+							<th>Times Used</th>
+							<td id="reportnumber">'.$totalDays.'</td>
 						</tr>
 						<tr>
-							<th>Reserved</th>
-							<td id="reportnumber">'.$spotsReserved.'</td>
-						</tr>
-						<tr>
-							<th>Unavailable</th>
-							<td id="reportnumber">'.$spotsUnavailable.'</td>
-						</tr>
-						<tr>
-							<th>Closed</th>
-							<td id="reportnumber">'.$spotsClosed.'</td>
-						</tr>
-						<tr id="reportresult">
-							<th>Available</th>
-							<td id="reportnumber">'.$spotsAvailable.'</td>
+							<th>Total Time</th>
+							<td id="reportnumber">'.$totalTime.'</td>
 						</tr>
 					</table>';		
 
@@ -101,7 +99,6 @@ if ($_SESSION['admin'] == 1){
 		
 
 		// Include the footer and quit the script:
-		echo '<h1>User Parking Report</h1>(<a href="reportuserparkingusage.php">open</a>)';
 		include ('includes/footer.html'); 
 		exit();
 		
@@ -120,6 +117,6 @@ if ($_SESSION['admin'] == 1){
 else{
 	echo "<p>Sorry $name, you are not authorized to access this page</p>";
 }
-echo '<h1>User Parking Report</h1>(<a href="reportuserparkingusage.php">open</a>)';
+
 include ('includes/footer.html');
 ?>

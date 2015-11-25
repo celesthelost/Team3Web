@@ -11,6 +11,8 @@ if (!isset($_SESSION['user_id'])) {
 
 }
 
+require ('mysqli_connect.php'); // Connect to the db.
+
 $page_title = 'Modify Parking Space Status';
 include ('includes/header.html');
 echo '<h1>Add New Parking Lot</h1>(<a href="parkingaddnewlot.php">open</a>)';
@@ -21,8 +23,6 @@ $name = $_SESSION['first_name'];
 if ($_SESSION['admin'] == 1){
 	// Check for form submission:
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-	require ('mysqli_connect.php'); // Connect to the db.
 		
 	$errors = array(); // Initialize an error array.
 	

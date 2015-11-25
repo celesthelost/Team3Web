@@ -2,11 +2,33 @@
 	<table id="subForm">
 		<tr>
 			<td>Lot Name:</td>
-			<td><input type="text" name="lot_name" size="20" maxlength="20" value="<?php if (isset($_POST['lot_name'])) echo $_POST['lot_name']; ?>" /></td>
+			<td><select name="lot_name" value="<?php if (isset($_POST['lot_name'])) echo $_POST['lot_name']; ?>">
+					<?php
+						$query = "SELECT * FROM Lots";		
+						$result = @mysqli_query ($dbc, $query);
+						if ($result) {
+							while ($row=mysqli_fetch_array($result, MYSQLI_ASSOC)){
+								echo "<option value='".$row['LotName']."'>".$row['LotName']."</option>";
+							}
+							echo '</select></td>';
+						} else {
+							echo '</select></td>';
+							echo '<h1>System Error</h1>
+								  <p class="error">An error occured attempting to get lots from the database.</p>'; 
+							echo '<p>' . mysqli_error($dbc) . 'Query: ' . $query . '</p>';
+										
+						}	
+					?>
 		</tr>
 		<tr>
 			<td>Space Number:</td>
-			<td><input type="text" name="space_number" size="20" maxlength="40" value="<?php if (isset($_POST['space_number'])) echo $_POST['space_number']; ?>" /></td>
+			<td><select name="space_number" value="<?php if (isset($_POST['space_number'])) echo $_POST['space_number']; ?>">
+					<?php
+						for ($i = 1; $i <= 10; $i++){
+							echo "<option value='".$i."'>".$i."</option>";
+						}
+						echo '</select></td>';
+					?>
 		</tr>
 		<tr>
 			<td>New Status</td>

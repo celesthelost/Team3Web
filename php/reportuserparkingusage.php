@@ -65,11 +65,36 @@ if ($_SESSION['admin'] == 1){
 		if ($r) { // If it ran OK.
 
 			$totalDays = 0;
-			$totalTime = 0;
+			$totalTimeMinutes = 0;
 
-			while ($row=mysqli_fetch_array($r, MYSQLI_ASSOC)){
+			while ($row=mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 				$totalDays++;
-				$totalTime += 4;
+				$qq = "SELECT * FROM history WHERE LotName='$ln' AND User='$un' AND 
+					   StartTime='".$row['StartTime']."' AND EndTime='".$row['EndTime']."'";
+				$rr = @mysqli_query ($dbc, $qq);
+
+				if ($rr){
+					while ($row1=mysqli_fetch_array($rr, MYSQLI_ASSOC)) {
+						$row1_st = explode(" ", $row1['StartTime']);
+						$startTimeArray = explode(":", $row1_st[1]);
+						$row1_et = explode(" ", $row1['EndTime']);
+						$endTimeArray = explode(":", $row1_et[1]);
+
+						if ($startTimeArray[0] != $endTimeArray[0]) {
+							$totalTimeMinutes += (intval($endTimeArray[0]) - intval($startTimeArray[0])) * 60;
+							
+							if ($startTimeArray[1] != 0) {
+								$totalTimeMinutes += 60 - intval($startTimeArray[1]);
+							}
+
+							$totalTimeMinutes += intval($endTimeArray[1]);
+
+						} else {
+							$totalTimeMinutes += intval($endTimeArray[1]) - intval($startTimeArray[1]);
+						}
+						
+					}
+				}
 			}
 
 			echo   '<table id="report">
@@ -82,7 +107,7 @@ if ($_SESSION['admin'] == 1){
 						</tr>
 						<tr>
 							<th>Total Time</th>
-							<td id="reportnumber">'.$totalTime.'</td>
+							<td id="reportnumber">'.(intval($totalTimeMinutes / 60)).' hour(s) and '.($totalTimeMinutes % 60).' minutes</td>
 						</tr>
 					</table>';		
 

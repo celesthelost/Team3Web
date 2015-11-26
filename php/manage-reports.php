@@ -11,14 +11,14 @@ if (!isset($_SESSION['user_id'])) {
 
 }
 
-$page_title = 'NKU Parking - Manage Parking';
+$page_title = 'NKU Parking - Reports';
 include ('includes/header.html');
 
 $name = $_SESSION['first_name'];
 
 if ($_SESSION['admin'] == 1){
-echo '<h1>Add New Parking Lot</h1>(<a href="parkingaddnewlot.php">open</a>)';
-echo '<h1>Modify Parking Space Status</h1>(<a href="parkingmodifyspaces.php">open</a>)';
+echo '<h1>Parking Lot Usage</h1>(<a href="reportparkinglotusage.php">open</a>)';
+echo '<h1>User Parking Report</h1>(<a href="reportuserparkingusage.php">open</a>)';
 
 }
 else{

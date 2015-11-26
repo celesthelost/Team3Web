@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 
 }
 
-$page_title = 'Registering New User';
+$page_title = 'NKU Parking - Manage Users';
 include ('includes/header.html');
 
 $name = $_SESSION['first_name'];

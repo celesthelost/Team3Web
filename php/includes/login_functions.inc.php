@@ -58,11 +58,14 @@ function check_login($dbc, $email = '', $pass = '') {
 		// Check the result:
 		if (mysqli_num_rows($r) == 1) {
 
-			// Fetch the record:
+			// Fetch the record and check for admin
 			$row = mysqli_fetch_array ($r, MYSQLI_ASSOC);
-
-			// Return true and the record:
-			return array(true, $row);
+			if ($row['ADMIN'] == 1){
+				// Return true and the record:
+				return array(true, $row);
+			} else {
+				$errors[] = 'Sorry, you are not authorized to sign into the administration portal.';
+			}
 			
 		} else { // Not a match!
 			$errors[] = 'The email address and password entered do not match those on file.';

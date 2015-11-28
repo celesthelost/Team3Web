@@ -13,34 +13,25 @@ if (!isset($_SESSION['user_id'])) {
 
 $page_title = 'Registering New User';
 include ('includes/header.html');
-
 $name = $_SESSION['first_name'];
+require ('mysqli_connect.php'); // Connect to the db.
 
 if ($_SESSION['admin'] == 1){
-echo '<h1>Add New User</h1>(<a href="registerbyadmin.php">open</a>)';
+echo '<h1>Add New User</h1>(<a href="register.php">open</a>)';
 echo '<h1>Edit User</h1>(<a href="edit.php">open</a>)';
 echo '<h1>Delete User</h1>(<a href="delete.php">open</a>)';
-echo '<h1>Reset User\'s password</h1>(<a href="reset.php">open</a>)';
-
-
-
-
-
-
+echo '<h1>Reset User\'s Password</h1>';
 
 	// Check for form submission:
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-	require ('mysqli_connect.php'); // Connect to the db.
 		
 	$errors = array(); // Initialize an error array.
 	
-	
-	// Check for an email address:
-	if (empty($_POST['email'])) {
-		$errors[] = 'You forgot to enter your email address.';
+	// Check for a selected user:
+	if (empty($_POST['user_name'])) {
+		$errors[] = 'Please select a user.';
 	} else {
-		$e = mysqli_real_escape_string($dbc, trim($_POST['email']));
+		$un = mysqli_real_escape_string($dbc, trim($_POST['user_name']));
 	}
 	
 	// Check for a password and match against the confirmed password:
@@ -51,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$p = mysqli_real_escape_string($dbc, trim($_POST['pass1']));
 		}
 	} else {
-		$errors[] = 'You forgot to enter your password.';
+		$errors[] = 'Please enter a password.';
 	}
 	
 	if (empty($errors)) { // If everything's OK.
@@ -59,13 +50,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		// Register the user in the database...
 		
 		// Make the query:
-		$q = "UPDATE USER SET PASSWORD='$p' WHERE USERNAME='$e';";		
+		$q = "UPDATE USER SET PASSWORD='$p' WHERE USERNAME='$un';";		
 		$r = @mysqli_query ($dbc, $q); // Run the query.
 		if ($r) { // If it ran OK.
 		
 			// Print a message:
 			echo '
-		<p class="error">User\'s password has been successfully reset.</p><p><br /></p>';	
+		<p class="error">User\'s password has been successfully reset.</p>';	
 		
 		} else { // If it did not run OK.
 			
@@ -78,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						
 		} // End of if ($r) IF.
 		
-
+		include('includes/userchangepassword.html');
 		// Include the footer and quit the script:
 		include ('includes/footer.html'); 
 		exit();
@@ -90,25 +81,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		foreach ($errors as $msg) { // Print each error.
 			echo " - $msg<br />\n";
 		}
-		echo '</p><p>Please try again.</p><p><br /></p>';
+		echo '</p><p>Please try again.</p>';
 		
 	} // End of if (empty($errors)) IF.
-	
-	
 }
-?>
 
-<form action="reset.php" method="post">
-	<p>Email Address: <input type="text" name="email" size="20" maxlength="60" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>"  /> </p>
-	<p>New Password: <input type="password" name="pass1" size="10" maxlength="20" value="<?php if (isset($_POST['pass1'])) echo $_POST['pass1']; ?>"  /></p>
-	<p>Confirm Password: <input type="password" name="pass2" size="10" maxlength="20" value="<?php if (isset($_POST['pass2'])) echo $_POST['pass2']; ?>"  /></p>
-	<p><input type="submit" name="submit" value="Rest Password" /></p>
-</form>
-
-
-<?php	
-
-
+include('includes/userchangepassword.html');
 
 }
 else{

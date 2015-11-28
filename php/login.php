@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$_SESSION['first_name'] = $data['FNAME'];
 		$_SESSION['last_name'] = $data['LNAME'];
 		$_SESSION['admin'] = $data['ADMIN'];
-		
+
 		// Redirect:
 		redirect_user('loggedin.php');
 			

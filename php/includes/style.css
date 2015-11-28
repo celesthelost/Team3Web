@@ -1,8 +1,8 @@
-/*
-	Author	:	Christopher Robinson
-	Email		:	christopher@edg3.co.uk
-	Website	:	http://www.edg3.co.uk/
-*/
+html {
+	min-height: 100%;
+	background: linear-gradient(#111, #fbc46f, #fbc46f);
+}
+
 * {
 	border: 0;
 	margin: 0;
@@ -22,9 +22,10 @@ a:hover {
 
 /* body */
 body {
-	background: #fbc46f;
+	/*background: #fbc46f;*/
 	color: #555;
 	font: 0.8em Arial, Helvetica, "bitstream vera sans", sans-serif;
+	height: 100%;
 }
 
 /* header */
@@ -104,7 +105,6 @@ body {
 	width: 751px;
 }
 
-/* Added by Larry Ullman: */
 .error, .ad {
 	font-weight: bold;
 	color: #C00
@@ -114,7 +114,54 @@ input, select, .input {
 	padding: 5px;
 	font-weight: bold;
 	font-size: 1em;
-	color: #008040;
 	background: #FFFFFF;
 	border:1px dotted #004080;
+}
+
+#subForm td {
+	padding: 5px 5px 5px 5px;
+	font-weight: 700;
+}
+
+#subForm #passwordField {
+	letter-spacing: 3px;
+}
+
+#subForm #submitButton {
+	float: right;
+	background-image: url("../includes/images/stripefade.png");
+	color: #fbc46f;
+	letter-spacing: 1px;
+	min-width: 75px;
+	min-height: 30px;
+	font-size: 1.1em;
+}
+
+#subForm select{
+	width: 100%;
+}
+
+#reportname{
+	text-align: center;
+	font-size: 1.3em;
+	font-weight: 700;
+	padding-bottom: 10px;
+}
+
+#reportnumber{
+	text-align: right;
+}
+
+#report {
+	margin: 15px 0 15px 5px;
+	font-size: 1.2em;
+}
+
+#report tr{
+	height: 20px;
+}
+
+#report th{
+	padding: 3px 25px 3px 0px;
+	text-align: left;
 }

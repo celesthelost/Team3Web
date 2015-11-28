@@ -1,0 +1,46 @@
+<form action="parkingmodifyspaces.php" method="post">
+	<table id="subForm">
+		<tr>
+			<td>Lot Name:</td>
+			<td><select name="lot_name" value="<?php if (isset($_POST['lot_name'])) echo $_POST['lot_name']; ?>">
+					<?php
+						$query = "SELECT * FROM Lots";		
+						$result = @mysqli_query ($dbc, $query);
+						if ($result) {
+							while ($row=mysqli_fetch_array($result, MYSQLI_ASSOC)){
+								echo "<option value='".$row['LotName']."'>".$row['LotName']."</option>";
+							}
+							echo '</select></td>';
+						} else {
+							echo '</select></td>';
+							echo '<h1>System Error</h1>
+								  <p class="error">An error occured attempting to get lots from the database.</p>'; 
+							echo '<p>' . mysqli_error($dbc) . 'Query: ' . $query . '</p>';
+										
+						}	
+					?>
+		</tr>
+		<tr>
+			<td>Space Number:</td>
+			<td><select name="space_number" value="<?php if (isset($_POST['space_number'])) echo $_POST['space_number']; ?>">
+					<?php
+						for ($i = 1; $i <= 10; $i++){
+							echo "<option value='".$i."'>".$i."</option>";
+						}
+						echo '</select></td>';
+					?>
+		</tr>
+		<tr>
+			<td>New Status</td>
+			<td><select name="space_status" value="<?php if (isset($_POST['space_status'])) echo $_POST['space_status']; ?>">
+					<option value="available">Available</option>
+					<option value="unavailable">Unavailable</option>
+					<option value="reserved">Reserved</option>
+					<option value="closed">Closed</option>
+				</select></td>
+		</tr>
+		<tr>
+			<td></td><td><input id="submitButton" type="submit" name="submit" value="Update" /></td>
+		</tr>
+	</table>
+</form>

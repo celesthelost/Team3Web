@@ -17,6 +17,7 @@ echo '<h1>Manage Parkings</h1>';
 
 if ($_SESSION['admin'] == 1){
 	echo "Welcome $name!";
+}
 	
 	
 	
@@ -24,7 +25,7 @@ if ($_SESSION['admin'] == 1){
 	
 	
 
-	
+
 	// Check for form submission:
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -48,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
 	// Check for an email address:
 	if (empty($_POST['email'])) {
-		$errors[] = 'You forgot to enter your email address.';
+		$errors[] = 'You forgot to enter your username.';
 	} else {
 		$e = mysqli_real_escape_string($dbc, trim($_POST['email']));
 	}
@@ -104,13 +105,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		echo '</p><p>Please try again.</p><p><br /></p>';
 		
 	} // End of if (empty($errors)) IF.
-	
-	
-	
-	
-	
-	
-	
 }
 else{
 	$name = $_SESSION['first_name'];
@@ -119,3 +113,4 @@ else{
 
 include ('includes/footer.html');
 ?>
+*/

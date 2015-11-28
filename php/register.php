@@ -27,29 +27,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
 	// Check for a first name:
 	if (empty($_POST['first_name'])) {
-		$errors[] = 'You forgot to enter your first name.';
+		$errors[] = 'You forgot to enter a first name.';
 	} else {
 		$fn = mysqli_real_escape_string($dbc, trim($_POST['first_name']));
 	}
 	
 	// Check for a last name:
 	if (empty($_POST['last_name'])) {
-		$errors[] = 'You forgot to enter your last name.';
+		$errors[] = 'You forgot to enter a last name.';
 	} else {
 		$ln = mysqli_real_escape_string($dbc, trim($_POST['last_name']));
 	}
 	
-	// Check for an email address:
-	if (empty($_POST['email'])) {
-		$errors[] = 'You forgot to enter your email address.';
+	// Check for username:
+	if (empty($_POST['username'])) {
+		$errors[] = 'You forgot to enter a username.';
 	} else {
-		$e = mysqli_real_escape_string($dbc, trim($_POST['email']));
+		$un = mysqli_real_escape_string($dbc, trim($_POST['username']));
 	}
 	
 	// Check for a password and match against the confirmed password:
 	if (!empty($_POST['pass1'])) {
 		if ($_POST['pass1'] != $_POST['pass2']) {
-			$errors[] = 'Your password did not match the confirmed password.';
+			$errors[] = 'Password did not match the confirmed password.';
 		} else {
 			$p = mysqli_real_escape_string($dbc, trim($_POST['pass1']));
 		}
@@ -62,14 +62,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		// Register the user in the database...
 		
 		// Make the query:
-		$q = "INSERT INTO USER (FNAME, LNAME, USERNAME, PASSWORD, ADMIN) VALUES ('$fn', '$ln', '$e', '$p', 0)";		
+		$q = "INSERT INTO USER (FNAME, LNAME, USERNAME, PASSWORD, ADMIN) VALUES ('$fn', '$ln', '$un', '$p', 0)";		
 		$r = @mysqli_query ($dbc, $q); // Run the query.
 		if ($r) { // If it ran OK.
 		
-			// Print a message:
-			echo '
-		<p class="error">User has been registered. User has been add as a regular user by default, you can change it to admin later.</p><p><br /></p>';	
-		
+			// Print action message
+			echo '<p class="error">User has been registered. User has been add as a regular user by default, you can change it to admin later.</p><p><br /></p>';	
+
 		} else { // If it did not run OK.
 			
 			// Public message:
@@ -83,9 +82,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		
 
 		// Include the footer and quit the script:
+		// include('includes/useraddnew.html');
 		echo '<h1>Edit User</h1>(<a href="edit.php">open</a>)';
 		echo '<h1>Delete User</h1>(<a href="delete.php">open</a>)';
-		echo '<h1>Reset User\'s password</h1>(<a href="reset.php">open</a>)';
+		echo '<h1>Reset User\'s Password</h1>(<a href="reset.php">open</a>)';
 		include ('includes/footer.html'); 
 		exit();
 		
@@ -102,23 +102,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
 	
 }
-?>
 
-<form action="register.php" method="post">
-	<p>First Name: <input type="text" name="first_name" size="15" maxlength="20" value="<?php if (isset($_POST['first_name'])) echo $_POST['first_name']; ?>" /></p>
-	<p>Last Name: <input type="text" name="last_name" size="15" maxlength="40" value="<?php if (isset($_POST['last_name'])) echo $_POST['last_name']; ?>" /></p>
-	<p>Email Address: <input type="text" name="email" size="20" maxlength="60" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>"  /> </p>
-	<p>Password: <input type="password" name="pass1" size="10" maxlength="20" value="<?php if (isset($_POST['pass1'])) echo $_POST['pass1']; ?>"  /></p>
-	<p>Confirm Password: <input type="password" name="pass2" size="10" maxlength="20" value="<?php if (isset($_POST['pass2'])) echo $_POST['pass2']; ?>"  /></p>
-	<p><input type="submit" name="submit" value="Register" /></p>
-</form>
-
-
-<?php	
-
+include('includes/useraddnew.html');
 echo '<h1>Edit User</h1>(<a href="edit.php">open</a>)';
 echo '<h1>Delete User</h1>(<a href="delete.php">open</a>)';
-echo '<h1>Reset User\'s password</h1>(<a href="reset.php">open</a>)';
+echo '<h1>Reset User\'s Password</h1>(<a href="reset.php">open</a>)';
 
 }
 else{

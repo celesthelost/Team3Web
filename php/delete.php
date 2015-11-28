@@ -13,35 +13,25 @@ if (!isset($_SESSION['user_id'])) {
 
 $page_title = 'NKU Parking - User Management';
 include ('includes/header.html');
-
 $name = $_SESSION['first_name'];
+require ('mysqli_connect.php'); // Connect to the db.
 
 if ($_SESSION['admin'] == 1){
 echo '<h1>Add New User</h1>(<a href="register.php">open</a>)';
 echo '<h1>Edit User</h1>(<a href="edit.php">open</a>)';
 echo '<h1>Delete User</h1>';
-	
-	
-	
-	
-	
-	
 		
 	// Check for form submission:
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	
-		require ('mysqli_connect.php'); // Connect to the db.
 			
 		$errors = array(); // Initialize an error array.
 		
-		
-		// Check for an email address:
-		if (empty($_POST['email'])) {
-			$errors[] = 'You forgot to enter your email address.';
+		// Check for an username:
+		if (empty($_POST['user_name'])) {
+			$errors[] = 'You forgot to select a user.';
 		} else {
-			$e = mysqli_real_escape_string($dbc, trim($_POST['email']));
+			$un = mysqli_real_escape_string($dbc, trim($_POST['user_name']));
 		}
-		
 		
 		
 		if (empty($errors)) { // If everything's OK.
@@ -49,14 +39,14 @@ echo '<h1>Delete User</h1>';
 			// Register the user in the database...
 			
 			// Make the query:
-			$q = "DELETE FROM USER WHERE USERNAME='$e';";
+			$q = "DELETE FROM USER WHERE USERNAME='$un';";
 				
 			$r = @mysqli_query ($dbc, $q); // Run the query.
 			if ($r) { // If it ran OK.
 			
 				// Print a message:
 				echo '
-			<p class="error">User has been been deleted.</p><p><br /></p>';	
+			<p class="error">User has been been deleted.</p>';	
 			
 			} else { // If it did not run OK.
 				
@@ -69,9 +59,10 @@ echo '<h1>Delete User</h1>';
 							
 			} // End of if ($r) IF.
 			
-	
+			
+			include('includes/userdelete.html');
 			// Include the footer and quit the script:
-			echo '<h1>Reset User\'s password</h1>(<a href="reset.php">open</a>)';
+			echo '<h1>Reset User\'s Password</h1>(<a href="reset.php">open</a>)';
 			include ('includes/footer.html'); 
 			exit();
 			
@@ -82,22 +73,15 @@ echo '<h1>Delete User</h1>';
 			foreach ($errors as $msg) { // Print each error.
 				echo " - $msg<br />\n";
 			}
-			echo '</p><p>Please try again.</p><p><br /></p>';
+			echo '</p><p>Please try again.</p>';
 			
 		} // End of if (empty($errors)) IF.
 		
 	
 	}
-?>
-<form action="delete.php" method="POST">
-	<p>Email Address: <input type="text" name="email" size="20" maxlength="60" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>"  /> </p>
-	<p><input type="submit" name="submit" value="Delete From Records" /></p>
-</form>
-
-
-<?php	
-
-echo '<h1>Reset User\'s password</h1>(<a href="reset.php">open</a>)';
+	
+include('includes/userdelete.html');
+echo '<h1>Reset User\'s Password</h1>(<a href="reset.php">open</a>)';
 
 }
 else{

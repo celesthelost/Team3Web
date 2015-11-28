@@ -20,7 +20,7 @@ if ($_SESSION['admin'] == 1){
 echo '<h1>Add New User</h1>(<a href="register.php">open</a>)';
 echo '<h1>Edit User</h1>(<a href="edit.php">open</a>)';
 echo '<h1>Delete User</h1>(<a href="delete.php">open</a>)';
-echo '<h1>Reset User\'s password</h1>(<a href="reset.php">open</a>)';
+echo '<h1>Reset User\'s Password</h1>(<a href="reset.php">open</a>)';
 
 }
 else{

@@ -1,3 +1,8 @@
+html {
+	min-height: 100%;
+	background: linear-gradient(#111, #fbc46f, #fbc46f);
+}
+
 * {
 	border: 0;
 	margin: 0;
@@ -17,9 +22,10 @@ a:hover {
 
 /* body */
 body {
-	background: #fbc46f;
+	/*background: #fbc46f;*/
 	color: #555;
 	font: 0.8em Arial, Helvetica, "bitstream vera sans", sans-serif;
+	height: 100%;
 }
 
 /* header */

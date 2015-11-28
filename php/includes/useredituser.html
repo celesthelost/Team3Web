@@ -1,0 +1,32 @@
+<form action="edit.php" method="post">
+	<table id="subForm">
+		<tr>
+			<td>Username:</td>
+			<td><select name="user_name" value="<?php if (isset($_POST['user_name'])) echo $_POST['user_name']; ?>">
+					<?php
+						$query = "SELECT * FROM USER ORDER BY USERNAME ASC";		
+						$result = @mysqli_query ($dbc, $query);
+						if ($result) {
+							while ($row=mysqli_fetch_array($result, MYSQLI_ASSOC)){
+								echo "<option value='".$row['USERNAME']."'>".$row['LNAME'].", ".$row['FNAME']." (".$row['USERNAME'].")</option>";
+							}
+							echo '</select></td>';
+						} else {
+							echo '</select></td>';
+							echo '<h1>System Error</h1>
+								  <p class="error">An error occured attempting to get users from the database.</p>'; 
+							echo '<p>' . mysqli_error($dbc) . 'Query: ' . $query . '</p>';
+										
+						}	
+					?></td>
+		</tr>
+		<tr>
+			<td>Admin Privileges:</td>
+			<td><input type="radio" name="isAdmin" value="yes"> Yes
+				<input type="radio" name="isAdmin" value="no"> No</td>
+		</tr>
+		<tr>
+			<td></td><td><input id="submitButton" type="submit" name="submit" value="Apply" /></td>
+		</tr>
+	</table>
+</form>

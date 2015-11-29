@@ -4,7 +4,7 @@
 			<td>Lot:</td>
 			<td><select name="lot_name" value="<?php if (isset($_POST['lot_name'])) echo $_POST['lot_name']; ?>">
 					<?php
-						$query = "SELECT * FROM Lots";		
+						$query = "SELECT * FROM Lots ORDER BY LotName ASC";		
 						$result = @mysqli_query ($dbc, $query);
 						if ($result) {
 							while ($row=mysqli_fetch_array($result, MYSQLI_ASSOC)){

@@ -48,11 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 	
 	if (empty($errors)) { // If everything's OK.
-	
-		// Add the new lot to the database
-		
-		// Make the query:
-		$q = "UPDATE Spots SET SpotStatus='$ss' WHERE SpotNumber='$sn' AND SpotLot='$ln'";		
+
+		if ($ss == 'reserved'){
+			$ReservedBy = 'Admin';
+			$q = "UPDATE Spots SET SpotStatus='$ss', ReservedBy='$ReservedBy' WHERE SpotNumber='$sn' AND SpotLot='$ln'";	
+		} else {
+			$q = "UPDATE Spots SET SpotStatus='$ss', ReservedBy=null WHERE SpotNumber='$sn' AND SpotLot='$ln'";	
+		}
+					
 		$r = @mysqli_query ($dbc, $q); // Run the query.
 		if ($r) { // If it ran OK.
 		

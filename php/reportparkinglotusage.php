@@ -1,4 +1,4 @@
-<?php # Script 10.5 - #5
+<?php 
 
 session_start(); // Start the session.
 

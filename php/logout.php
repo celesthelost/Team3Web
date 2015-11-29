@@ -1,4 +1,4 @@
-<?php # Script 12.11 - logout.php #2
+<?php
 // This page lets the user logout.
 // This version uses sessions.
 

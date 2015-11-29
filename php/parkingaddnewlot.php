@@ -1,4 +1,4 @@
-<?php # Script 10.5 - #5
+<?php
 
 session_start(); // Start the session.
 
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			}
 
 			// Print a message:
-			echo '<p class="error">New lot has been added.</p>';	
+			echo '<p class="error">New parking lot \''.$ln.'\' has been added.</p>';	
 		
 		} else { // If it did not run OK.
 			

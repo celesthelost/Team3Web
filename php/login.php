@@ -1,4 +1,4 @@
-<?php # Script 12.8 - login.php #3
+<?php
 // This page processes the login form submission.
 // The script now uses sessions.
 
@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		// Set the session data:
 		session_start();
 		$_SESSION['user_id'] = $data['ID'];
+		$_SESSION['username'] = $data['USERNAME'];
 		$_SESSION['first_name'] = $data['FNAME'];
 		$_SESSION['last_name'] = $data['LNAME'];
 		$_SESSION['admin'] = $data['ADMIN'];

@@ -1,4 +1,4 @@
-<?php # Script 12.2 - login_functions.inc.php
+<?php
 // This page defines two functions used by the login/logout process.
 
 /* This function determines an absolute URL and redirects the user there.

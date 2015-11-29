@@ -1,4 +1,4 @@
-<?php # Script 12.8 - login.php #3
+<?php
 // This page processes the login form submission.
 // The script now uses sessions.
 

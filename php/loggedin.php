@@ -1,4 +1,4 @@
-<?php # Script 12.9 - loggedin.php #2
+<?php
 // The user is redirected here from login.php.
 
 session_start(); // Start the session.
